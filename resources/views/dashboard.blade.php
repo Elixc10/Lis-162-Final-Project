@@ -7,11 +7,12 @@
     
     
         <form action="{{ route('dashboard') }}" method="GET" role="search" id="search-form" name="gs">
-        <div class="row align-items-center">
-        <div class="col-lg-2"><input type="text" name="title" placeholder="Title" value="{{ request('title') }}" style="padding: 5px 5px 5px 16px; width: 180px;"></div>
-        <div class="col-lg-2"><input type="text" name="artist" placeholder="Artist" value="{{ request('artist') }}" style="padding: 5px 5px 5px 16px; width: 180px;"></div>
+    <div class="row align-items-center">
+        <!-- Search Inputs (Same for Everyone) -->
+        <div class="col-lg-2"><input type="text" name="title" placeholder="Title" value="{{ request('title') }}" style="padding: 15px; width: 180px;"></div>
+        <div class="col-lg-2"><input type="text" name="artist" placeholder="Artist" value="{{ request('artist') }}" style="padding: 15px; width: 180px;"></div>
         <div class="col-lg-2">
-            <select name="genre" class="form-select" style="padding: 5px 5px 5px 16px; width: 180px;">
+            <select name="genre" class="form-select" style="padding: 10px; width: 180px;">
                 <option value="">Genre</option>
                 <option value="Pop" {{ request('genre') == 'Pop' ? 'selected' : '' }}>Pop</option>
                 <option value="Hip-hop" {{ request('genre') == 'Hip-hop' ? 'selected' : '' }}>Hip-hop</option>
@@ -22,33 +23,27 @@
                 <option value="Rock" {{ request('genre') == 'Rock' ? 'selected' : '' }}>Rock</option>
             </select>
         </div>
-        <div class="col-lg-2"><input type="text" name="language" placeholder="Language" value="{{ request('language') }}" style="padding: 5px 5px 5px 16px; width: 180px;"></div>
-        <div class="col-lg-2"><input type="number" name="year_min" placeholder="Year Min" value="{{ request('year_min') }}" style="padding: 5px 5px 5px 16px; width: 180px;"></div>
-        <div class="col-lg-2"><input type="number" name="year_max" placeholder="Year Max" value="{{ request('year_max') }}" style="padding: 5px 5px 5px 16px; width: 180px;"></div>
+        <div class="col-lg-2"><input type="text" name="language" placeholder="Language" value="{{ request('language') }}" style="padding: 15px; width: 180px;"></div>
+        <div class="col-lg-1"><input type="number" name="year_min" placeholder="Min" value="{{ request('year_min') }}" style="padding: 15px; width: 90px;"></div>
+        <div class="col-lg-1"><input type="number" name="year_max" placeholder="Max" value="{{ request('year_max') }}" style="padding: 15px; width: 90px;"></div>
 
-            @auth
-            <div class="col-lg-4 d-flex align-items-center gap-2 ms-auto" style="margin-top: 8px; justify-content: flex-end;">
-                <a href="{{ route('songs.create') }}" style="width: 120px; display: flex; align-items: center; justify-content: center;">
-                    <button type="button" class="action-btn" style="width: 100%; height: 44px; display: flex; align-items: center; justify-content: center;">Add New Song</button>
+        <!-- Action Buttons Column -->
+        <div class="col-lg-2 d-flex align-items-center gap-2 ms-auto" style="margin-top: 8px; justify-content: flex-end;">
+            <button type="submit" style="width: 80px; height: 50px;">Search</button>
+
+            <a href="{{ route('dashboard') }}">
+                <button type="button" style="width: 80px; height: 44px;">Clear</button>
+            </a>
+            
+             @auth
+                <a href="{{ route('songs.create') }}">
+                    <button type="button" class="action-btn" style="height: 44px; width: 44px;">New </button>
                 </a>
-                    <button type="submit" style="padding: 5px 10px; width: 90px; display: flex; align-items: center; justify-content: center;">Search</button>
-                <a href="{{ route('dashboard') }}" style="width: 90px; display: flex; align-items: center; justify-content: center;">
-                    <button type="button" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">Clear</button>
-                </a>
-            </div>
-        </div>
-        </div>
-            @else
-            <div class="row align-items-center">
-                <div class="col-lg-2 d-flex align-items-center gap-2 ms-auto" style="margin-top: 8px; justify-content: flex-end;">
-                        <button type="submit" style="padding: 5px 10px; width: 90px; display: flex; align-items: center; justify-content: center;">Search</button>
-                        <a href="{{ route('dashboard') }}" style="width: 90px; display: flex; align-items: center; justify-content: center;">
-                        <button type="button" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">Clear</button>
-                        </a>
-                </div>
-            </div>
             @endauth
-        </form>
+        </div>
+    </div>
+</form>
+
 
     <div class="item" style="background: transparent; box-shadow: none; padding: 0;">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -148,7 +143,7 @@
 
 
     <!-- Music Player Section -->
-    <div id="music-player-container" style="position: fixed; bottom: 0; left: 0; width: 100%; background-color: #f7f7f7; padding: 10px; box-shadow: 0 -2px 5px rgba(0,0,0,0.1); display: none;">
+    <div id="music-player-container" style="position: fixed; bottom: 0; left: 0; width: 100%; background-color: #301e2fff; padding: 10px; box-shadow: 0 -2px 5px rgba(0,0,0,0.1); display: none;">
         <p>Now Playing: <strong id="now-playing-info">None</strong></p>
         <audio controls id="audio-player" style="width: 100%;">
             Your browser does not support the audio element.
